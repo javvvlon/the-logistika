@@ -7,12 +7,24 @@
   var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
   var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
 
+  /* ---------- UI strings per language (page copy itself is static HTML) ---------- */
+  var LANG = (doc.getAttribute('lang') || 'ru').slice(0, 2);
+  var I18N = {
+    ru: { menu: 'Меню', close: 'Закрыть', locale: 'ru-RU',
+          error: 'Не удалось отправить заявку. Позвоните нам: +998 99 523 27 05 или напишите на uz.silkroad@mail.ru' },
+    uz: { menu: 'Menyu', close: 'Yopish', locale: 'uz-UZ',
+          error: "Arizani yuborib bo'lmadi. Bizga qo'ng'iroq qiling: +998 99 523 27 05 yoki uz.silkroad@mail.ru manziliga yozing" },
+    en: { menu: 'Menu', close: 'Close', locale: 'en-US',
+          error: 'Could not send your request. Please call us at +998 99 523 27 05 or email uz.silkroad@mail.ru' }
+  };
+  var T = I18N[LANG] || I18N.ru;
+
   /* ---------- Hero entrance ---------- */
   requestAnimationFrame(function () { requestAnimationFrame(function () { doc.classList.add('is-loaded'); }); });
 
   /* ---------- Hero photo: use assets/img/hero.jpg if it exists ---------- */
   var heroPhoto = $('[data-hero-photo]');
-  if (heroPhoto && heroPhoto.dataset.src) {
+  if (heroPhoto && heroPhoto.dataset.src && !heroPhoto.getAttribute('src')) {
     var probe = new Image();
     probe.onload = function () { heroPhoto.src = heroPhoto.dataset.src; $('.hero').classList.add('has-photo'); };
     probe.src = heroPhoto.dataset.src;
@@ -38,7 +50,7 @@
   var nav = $('[data-nav]');
   function setMenu(open) {
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.querySelector('.menu-toggle__label').textContent = open ? 'Закрыть' : 'Меню';
+    toggle.querySelector('.menu-toggle__label').textContent = open ? T.close : T.menu;
     nav.classList.toggle('is-open', open);
     document.body.classList.toggle('menu-open', open);
     if (open) { header.classList.remove('is-hidden'); var first = nav.querySelector('a'); if (first) first.focus({ preventScroll: true }); }
@@ -73,11 +85,11 @@
   var counters = $$('[data-count]').filter(function (el) { return /^\d+$/.test(el.dataset.count || ''); });
   function runCounter(el) {
     var target = parseInt(el.dataset.count, 10);
-    if (reduceMotion) { el.textContent = target.toLocaleString('ru-RU'); return; }
+    if (reduceMotion) { el.textContent = target.toLocaleString(T.locale); return; }
     var start = performance.now(), dur = 1600;
     (function step(now) {
       var t = Math.min((now - start) / dur, 1); var eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = Math.round(target * eased).toLocaleString('ru-RU');
+      el.textContent = Math.round(target * eased).toLocaleString(T.locale);
       if (t < 1) requestAnimationFrame(step);
     })(start);
   }
@@ -123,11 +135,6 @@
   heroLinks.forEach(function (a) { a.addEventListener('click', function () { setService(parseInt(a.dataset.serviceLink, 10)); }); });
 
   /* ---------- Interactive route map ---------- */
-  var ROUTES = {
-    eu: { title: 'Европа', text: 'Регулярные рейсы из Ташкента в страны Европы и обратно. CMR и книжки МДП (TIR) оформляем сами.' },
-    me: { title: 'Ближний Восток', text: 'Перевозки в страны Ближнего Востока и обратно — под ключ, с таможенным оформлением.' },
-    cn: { title: 'Китай — Чугучак, Алашанькоу, Хоргос', text: 'Через погранпереходы Чугучак, Алашанькоу и Хоргос: консолидация и прямые рейсы из Китая в Узбекистан.' }
-  };
   var routeBtns = $$('[data-route]');
   var routeGroups = $$('[data-route-path]');
   var routePoints = $$('[data-route-point]');
@@ -147,8 +154,9 @@
     });
     routeGroups.forEach(function (g) { g.classList.toggle('is-active', g.dataset.routePath === key); });
     routePoints.forEach(function (p) { p.classList.toggle('is-active', p.dataset.routePoint === key); });
-    if (infoBox && ROUTES[key]) {
-      infoTitle.textContent = ROUTES[key].title; infoText.textContent = ROUTES[key].text;
+    var btn = routeBtns.filter(function (x) { return x.dataset.route === key; })[0];
+    if (infoBox && btn) {
+      infoTitle.textContent = btn.dataset.title; infoText.textContent = btn.dataset.text;
       infoBox.classList.remove('is-changing'); void infoBox.offsetWidth; infoBox.classList.add('is-changing');
     }
     var g = routeGroups.filter(function (x) { return x.dataset.routePath === key; })[0];
@@ -184,20 +192,6 @@
     })(performance.now());
   }
 
-  /* ---------- Tracking form (no public API yet) ---------- */
-  var trackForm = $('[data-track-form]');
-  if (trackForm) {
-    trackForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var input = trackForm.querySelector('input'); var msg = $('[data-track-msg]');
-      var v = input.value.trim();
-      if (!v) { msg.textContent = 'Введите номер накладной.'; input.focus(); return; }
-      msg.innerHTML = '';
-      msg.append('Статус груза ' + v + ' уточнит диспетчер: ');
-      var a = document.createElement('a'); a.href = 'tel:+998995232705'; a.textContent = '+998 99 523 27 05'; msg.append(a);
-    });
-  }
-
   /* ---------- Quote form → /api/lead (Telegram) ---------- */
   var form = $('[data-quote-form]');
   if (form) {
@@ -223,7 +217,7 @@
       var oldErr = form.querySelector('.quote__error'); if (oldErr) oldErr.remove();
       btn.disabled = true; btn.classList.add('is-loading');
       var data = Object.fromEntries(new FormData(form).entries());
-      data.page = location.href;
+      data.page = location.href; data.lang = LANG;
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function () {
@@ -232,7 +226,7 @@
         })
         .catch(function () {
           var p = document.createElement('p'); p.className = 'quote__error'; p.setAttribute('role', 'alert');
-          p.textContent = 'Не удалось отправить заявку. Позвоните нам: +998 99 523 27 05 или напишите на uz.silkroad@mail.ru';
+          p.textContent = T.error;
           btn.insertAdjacentElement('afterend', p);
         })
         .finally(function () { btn.disabled = false; btn.classList.remove('is-loading'); });

@@ -8,8 +8,9 @@
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://your-domain.uz/">
   <link rel="alternate" hreflang="ru" href="https://your-domain.uz/">
+  <link rel="alternate" hreflang="uz" href="https://your-domain.uz/uz/">
+  <link rel="alternate" hreflang="en" href="https://your-domain.uz/en/">
   <link rel="alternate" hreflang="x-default" href="https://your-domain.uz/">
-  <!-- Добавьте, когда появятся версии: <link rel="alternate" hreflang="uz" href="https://your-domain.uz/uz/"> и hreflang="en" -->
 
   <meta name="theme-color" content="#0B0B0B">
   <meta name="color-scheme" content="dark">
@@ -33,15 +34,16 @@
   <meta name="twitter:image" content="https://your-domain.uz/assets/img/og-image.jpg">
 
   <!-- Icons & manifest -->
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Performance -->
-  <link rel="preload" href="assets/fonts/inter-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="preload" as="image" href="/assets/img/photos/hero-1920.webp" imagesrcset="/assets/img/photos/hero-960.webp 960w, /assets/img/photos/hero-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" href="/assets/fonts/inter-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/styles.css">
   <script>document.documentElement.classList.replace('no-js','js');</script>
-  <script src="assets/js/main.js" defer></script>
+  <script src="/assets/js/main.js" defer></script>
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -93,7 +95,7 @@
   <header class="site-header" data-header>
     <div class="site-header__inner">
       <a class="site-header__logo" href="#top" aria-label="The Logistika Holding — на главную">
-        <img src="assets/img/logo-reversed.svg" alt="The Logistika Holding" width="227" height="46">
+        <img src="/assets/img/logo-reversed.svg" alt="The Logistika Holding" width="227" height="46">
       </a>
 
       <nav class="nav" id="site-nav" aria-label="Основное меню" data-nav>
@@ -106,9 +108,9 @@
         <span class="nav__divider" aria-hidden="true"></span>
         <a class="nav__phone" href="tel:+998995232705">+998 99 523 27 05</a>
         <div class="lang" role="group" aria-label="Язык сайта">
-          <a class="lang__item is-active" href="/" hreflang="ru" aria-current="true">RU</a>
-          <a class="lang__item" href="#" hreflang="uz">UZ</a>
-          <a class="lang__item" href="#" hreflang="en">EN</a>
+          <a class="lang__item is-active" href="/" hreflang="ru" lang="ru" data-lang="ru" aria-current="page">RU</a>
+          <a class="lang__item" href="/uz/" hreflang="uz" lang="uz" data-lang="uz">UZ</a>
+          <a class="lang__item" href="/en/" hreflang="en" lang="en" data-lang="en">EN</a>
         </div>
         <a class="btn btn--red nav__mobile-cta" href="#contact">Заказать звонок</a>
       </nav>
@@ -123,10 +125,9 @@
 
   <main id="main">
     <!-- ============ HERO ============ -->
-    <section class="hero" id="top" aria-labelledby="hero-title">
+    <section class="hero has-photo" id="top" aria-labelledby="hero-title">
       <div class="hero__media" aria-hidden="true">
-        <!-- Положите фото в assets/img/hero.jpg — оно подключится автоматически -->
-        <img class="hero__photo" data-hero-photo data-src="assets/img/hero.jpg" alt="" width="2560" height="1440" fetchpriority="high">
+        <img class="hero__photo" src="/assets/img/photos/hero-1920.webp" srcset="/assets/img/photos/hero-960.webp 960w, /assets/img/photos/hero-1920.webp 1920w" sizes="100vw" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
         <svg class="hero__scene" viewBox="0 0 1440 860" preserveAspectRatio="xMidYMid slice">
           <defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter></defs>
           <rect y="0" width="1440" height="470" fill="#2B2F35" opacity=".35"/>
@@ -151,7 +152,6 @@
         <p class="hero__lead" data-hero-in>Автоперевозки, склад и таможня из Ташкента в Европу, на Ближний Восток и в Китай — по одному договору, со своим автопарком.</p>
         <div class="hero__actions" data-hero-in>
           <a class="btn-pill btn-pill--light" href="#contact">Рассчитать стоимость <span class="btn-pill__icon" aria-hidden="true">↗</span></a>
-          <a class="btn-pill btn-pill--glass" href="#track">Отследить груз <span class="btn-pill__icon" aria-hidden="true">↓</span></a>
         </div>
       </div>
 
@@ -204,22 +204,22 @@
 
       <div class="cards" aria-hidden="true" data-reveal>
         <div class="card is-active" data-card="0" style="--bg: radial-gradient(ellipse at 60% 35%, #3B4046 0%, #1C1E21 55%, #0E0F10 100%)">
-          <span class="card__ph">[Фото: тягач на трассе в сумерках]</span>
+          <img class="card__img" src="/assets/img/photos/road-1920.webp" srcset="/assets/img/photos/road-960.webp 960w, /assets/img/photos/road-1920.webp 1920w" sizes="(min-width: 960px) 60vw, 100vw" alt="Красный тягач с белым полуприцепом на трассе в сумерках" width="1920" height="1080" loading="lazy" decoding="async">
           <span class="card__dot">↗</span>
           <span class="card__label"><span class="card__full">Автоперевозки</span><span class="card__short">Авто</span></span>
         </div>
         <div class="card" data-card="1" style="--bg: radial-gradient(ellipse at 45% 30%, #3A3B42 0%, #1C1C21 55%, #0E0E10 100%)">
-          <span class="card__ph">[Фото: граница, таможенный пост]</span>
+          <img class="card__img" src="/assets/img/photos/border-1920.webp" srcset="/assets/img/photos/border-960.webp 960w, /assets/img/photos/border-1920.webp 1920w" sizes="(min-width: 960px) 60vw, 100vw" alt="Колонна грузовиков на погранпереходе у подножия гор" width="1920" height="1080" loading="lazy" decoding="async">
           <span class="card__dot">↗</span>
           <span class="card__label"><span class="card__full">Международные перевозки</span><span class="card__short">Международные</span></span>
         </div>
         <div class="card" data-card="2" style="--bg: radial-gradient(ellipse at 50% 40%, #3A3D3C 0%, #1B1D1C 55%, #0E0F0F 100%)">
-          <span class="card__ph">[Фото: стеллажи склада]</span>
+          <img class="card__img" src="/assets/img/photos/warehouse-1920.webp" srcset="/assets/img/photos/warehouse-960.webp 960w, /assets/img/photos/warehouse-1920.webp 1920w" sizes="(min-width: 960px) 60vw, 100vw" alt="Стеллажи складского комплекса и погрузчик" width="1920" height="1080" loading="lazy" decoding="async">
           <span class="card__dot">↗</span>
           <span class="card__label"><span class="card__full">Складская логистика</span><span class="card__short">Склад</span></span>
         </div>
         <div class="card" data-card="3" style="--bg: radial-gradient(ellipse at 55% 35%, #403B3A 0%, #1E1C1B 55%, #100E0E 100%)">
-          <span class="card__ph">[Фото: документы, брокер]</span>
+          <img class="card__img" src="/assets/img/photos/customs-1920.webp" srcset="/assets/img/photos/customs-960.webp 960w, /assets/img/photos/customs-1920.webp 1920w" sizes="(min-width: 960px) 60vw, 100vw" alt="Таможенный брокер с документами у открытого полуприцепа" width="1920" height="1080" loading="lazy" decoding="async">
           <span class="card__dot">↗</span>
           <span class="card__label"><span class="card__full">Таможенное оформление</span><span class="card__short">Таможня</span></span>
         </div>
@@ -270,17 +270,17 @@
         <p class="eyebrow" data-reveal>04 · Направления</p>
         <h2 class="h2" id="routes-title" data-reveal>Ташкент — центр<br>вашего маршрута.</h2>
         <div class="route-rows" role="tablist" aria-label="Направления на карте" data-route-list>
-          <button class="route-row is-active" type="button" role="tab" aria-selected="true" aria-controls="route-info" data-route="eu" data-reveal>
+          <button class="route-row is-active" type="button" role="tab" aria-selected="true" aria-controls="route-info" data-route="eu" data-title="Европа" data-text="Регулярные рейсы из Ташкента в страны Европы и обратно. CMR и книжки МДП (TIR) оформляем сами." data-reveal>
             <span class="route-row__n">01</span>
             <span class="route-row__body"><span class="route-row__name">Европа</span><span class="route-row__sub">ЕС и страны Восточной Европы</span></span>
             <span class="route-row__arrow" aria-hidden="true">↗</span>
           </button>
-          <button class="route-row" type="button" role="tab" aria-selected="false" aria-controls="route-info" tabindex="-1" data-route="me" data-reveal>
+          <button class="route-row" type="button" role="tab" aria-selected="false" aria-controls="route-info" tabindex="-1" data-route="me" data-title="Ближний Восток" data-text="Перевозки в страны Ближнего Востока и обратно — под ключ, с таможенным оформлением." data-reveal>
             <span class="route-row__n">02</span>
             <span class="route-row__body"><span class="route-row__name">Ближний Восток</span><span class="route-row__sub">Перевозки под ключ с таможней</span></span>
             <span class="route-row__arrow" aria-hidden="true">↗</span>
           </button>
-          <button class="route-row" type="button" role="tab" aria-selected="false" aria-controls="route-info" tabindex="-1" data-route="cn" data-reveal>
+          <button class="route-row" type="button" role="tab" aria-selected="false" aria-controls="route-info" tabindex="-1" data-route="cn" data-title="Китай — Чугучак, Алашанькоу, Хоргос" data-text="Через погранпереходы Чугучак, Алашанькоу и Хоргос: консолидация и прямые рейсы из Китая в Узбекистан." data-reveal>
             <span class="route-row__n">03</span>
             <span class="route-row__body"><span class="route-row__name">Китай</span><span class="route-row__sub">Чугучак · Алашанькоу · Хоргос</span></span>
             <span class="route-row__arrow" aria-hidden="true">↗</span>
@@ -332,19 +332,13 @@
           <p class="map__info-text" data-route-text>Регулярные рейсы из Ташкента в страны Европы и обратно. CMR и книжки МДП (TIR) оформляем сами.</p>
         </div>
 
-        <form class="track" id="track" data-track-form novalidate>
-          <label class="track__label" for="track-input">Где мой груз?</label>
-          <input class="track__input" id="track-input" name="waybill" type="text" placeholder="Номер накладной" autocomplete="off" required>
-          <button class="track__btn" type="submit">Найти</button>
-          <p class="track__msg" role="status" aria-live="polite" data-track-msg></p>
-        </form>
       </figure>
     </section>
 
     <!-- ============ 05 WHY ============ -->
     <section class="section container why" aria-labelledby="why-title">
       <div class="why__photo" data-reveal>
-        <span class="ph-note">[Фото: водитель у тягача / колонна машин]</span>
+        <img class="why__img" src="/assets/img/photos/driver-1920.webp" srcset="/assets/img/photos/driver-960.webp 960w, /assets/img/photos/driver-1920.webp 1920w" sizes="(min-width: 960px) 40vw, 100vw" alt="Водитель The Logistika Holding у красного тягача" width="1920" height="1080" loading="lazy" decoding="async">
         <div class="why__caption">
           <p class="eyebrow">05 · Преимущества</p>
           <h2 class="h2" id="why-title">Уверенность<br>в деталях.</h2>
@@ -378,7 +372,7 @@
         <span class="split__cta">Оставить заявку <span class="split__icon" aria-hidden="true">↗</span></span>
       </a>
       <a class="split__card split__card--dark" href="#contact" data-reveal>
-        <img class="split__symbol" src="assets/img/symbol-white.svg" alt="" width="260" height="218" loading="lazy">
+        <img class="split__symbol" src="/assets/img/symbol-white.svg" alt="" width="260" height="218" loading="lazy">
         <span class="eyebrow">Для водителей</span>
         <span class="split__title">Работать с нами</span>
         <span class="split__text">Стабильные рейсы, оплата в срок и современные тягачи. Открытые вакансии водителей.</span>
@@ -389,10 +383,11 @@
     <!-- ============ CONTACT ============ -->
     <section class="container contact" id="contact" aria-labelledby="contact-title">
       <div class="contact__box" data-reveal>
-        <span class="ph-note contact__ph">[Фоновое фото: склад / погрузка ночью]</span>
+        <img class="contact__bg" src="/assets/img/photos/dock-1920.webp" srcset="/assets/img/photos/dock-960.webp 960w, /assets/img/photos/dock-1920.webp 1920w" sizes="100vw" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+        <span class="contact__shade" aria-hidden="true"></span>
         <div class="contact__intro">
           <svg class="stripes" width="94" height="12" viewBox="0 0 95 12" aria-hidden="true"><polygon points="10.4,0 28.4,0 18,12 0,12"/><polygon points="32.4,0 50.4,0 40,12 22,12"/><polygon points="54.4,0 72.4,0 62,12 44,12"/><polygon points="76.4,0 94.4,0 84,12 66,12"/></svg>
-          <h2 class="h2 h2--xl" id="contact-title">У каждого груза —<br>свой маршрут.</h2>
+          <h2 class="h2 h2--xl" id="contact-title">У каждого груза&nbsp;—<br>свой маршрут.</h2>
           <p class="contact__lead">Расскажите, что и куда везти — менеджер перезвонит в течение [X] минут в рабочее время.</p>
           <div class="contact__pills">
             <a class="pill-link" href="tel:+998995232705">☎ +998 99 523 27 05</a>
@@ -419,7 +414,7 @@
             <textarea id="q-cargo" name="cargo" rows="3" placeholder="Например: 20 т, Ташкент → Москва, на следующей неделе" required></textarea>
             <span class="field__err">Опишите груз и маршрут</span>
           </div>
-          <!-- антиспам: скрытое поле -->
+          <!-- honeypot (anti-spam) -->
           <div class="visually-hidden" aria-hidden="true"><label for="q-web">Оставьте пустым</label><input id="q-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
           <button class="quote__submit" type="submit"><span>Отправить заявку</span></button>
           <p class="quote__legal">Нажимая кнопку, вы соглашаетесь с <a href="#">политикой обработки персональных данных</a>.</p>
@@ -450,7 +445,7 @@
   <footer class="footer">
     <div class="container footer__top">
       <div class="footer__brand">
-        <img src="assets/img/logo-reversed.svg" alt="The Logistika Holding" width="227" height="46" loading="lazy">
+        <img src="/assets/img/logo-reversed.svg" alt="The Logistika Holding" width="227" height="46" loading="lazy">
         <p>Перевозки, склад и таможня — по одному договору.</p>
       </div>
       <nav class="footer__cols" aria-label="Ссылки в подвале">

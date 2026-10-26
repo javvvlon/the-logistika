@@ -36,6 +36,7 @@ module.exports = async function handler(req, res) {
   const phone = clean(body.phone, MAX.phone);
   const cargo = clean(body.cargo, MAX.cargo);
   const page = clean(body.page, MAX.page);
+  const lang = clean(body.lang, 5).toUpperCase();
 
   if (!name || !/[0-9]{7,}/.test(phone.replace(/\D/g, '')) || !cargo) {
     return res.status(400).json({ ok: false, error: 'Invalid form data' });
@@ -46,6 +47,7 @@ module.exports = async function handler(req, res) {
     '🚚 <b>Новая заявка с сайта</b>\n\n' +
     '<b>Имя:</b> ' + esc(name) + '\n' +
     '<b>Телефон:</b> ' + esc(phone) + '\n' +
+    (lang ? '<b>Язык сайта:</b> ' + esc(lang) + '\n' : '') +
     '<b>Груз и маршрут:</b>\n' + esc(cargo) + '\n\n' +
     '<i>' + esc(time) + ' (Ташкент)</i>' + (page ? '\n' + esc(page) : '');
 

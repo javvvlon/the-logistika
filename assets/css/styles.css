@@ -733,3 +733,44 @@ body.menu-open { overflow: hidden; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
   .js [data-reveal], .js [data-hero-in] { opacity: 1; transform: none; }
 }
+
+/* =========================================================
+   PHOTOS (generated with ElevenLabs, see README)
+   ========================================================= */
+.card__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.08); filter: saturate(.85) brightness(.85);
+  transition: transform 1.2s var(--ease), filter .8s var(--ease);
+}
+.card.is-active .card__img { transform: scale(1); filter: none; }
+.card:not(.is-active):hover .card__img { filter: saturate(1) brightness(.95); }
+[data-card="0"] .card__img { object-position: 40% center; }
+[data-card="1"] .card__img { object-position: 35% center; }
+[data-card="2"] .card__img { object-position: 50% center; }
+[data-card="3"] .card__img { object-position: 38% center; }
+
+.why__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 74% 30%;
+  transform: scale(1.06); transition: transform 1.4s var(--ease);
+}
+.why__photo.is-visible .why__img { transform: scale(1); }
+
+.contact__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 80% center; }
+.contact__shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(14, 15, 16, .55) 0%, rgba(14, 15, 16, .88) 45%, rgba(14, 15, 16, .95) 100%);
+}
+.contact__intro, .quote { position: relative; z-index: 1; }
+@media (min-width: 960px) {
+  .contact__shade { background: linear-gradient(90deg, rgba(14, 15, 16, .94) 0%, rgba(14, 15, 16, .7) 45%, rgba(14, 15, 16, .35) 100%); }
+}
+
+/* header: keep labels on one line; compact between 960 and 1199px */
+.nav__link, .nav__phone, .lang__item, .site-header__cta, .btn { white-space: nowrap; }
+@media (min-width: 960px) and (max-width: 1199px) {
+  .nav__phone, .nav__divider { display: none; }
+  .site-header__logo img { height: 36px; }
+  .nav { padding-left: 10px; }
+  .nav__link { padding-inline: 10px; }
+  .site-header__cta { padding-inline: 18px; }
+}

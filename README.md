@@ -5,7 +5,10 @@
 ## Структура
 
 ```
-index.html              — главная страница (RU), SEO-мета, Open Graph, JSON-LD
+index.html              — главная страница (RU, источник), SEO-мета, Open Graph, JSON-LD
+uz/index.html, en/index.html — узбекская и английская версии (генерируются, не редактировать руками)
+i18n/translations.json  — переводы: [русский, English, O‘zbekcha]
+scripts/build-i18n.mjs  — сборка /uz/ и /en/ из index.html
 404.html                — страница «не найдено»
 api/lead.js             — Vercel Function: POST /api/lead → сообщение в Telegram
 assets/css/styles.css   — стили (mobile-first, брендбук)
@@ -15,10 +18,20 @@ assets/img/             — логотипы, favicon, иконки, og-image.jp
 robots.txt, sitemap.xml, site.webmanifest, vercel.json
 ```
 
+## Языки (RU / UZ / EN)
+
+Русская версия — `index.html`, она же источник. После любых правок текста:
+
+1. добавьте/исправьте строку в `i18n/translations.json` — `[«как в index.html», "English", "O‘zbekcha"]`;
+2. запустите `node scripts/build-i18n.mjs` — он пересоздаст `en/index.html` и `uz/index.html`;
+3. если какой-то русский текст остался без перевода, скрипт перечислит его и завершится с ошибкой.
+
+Переключатель языков в шапке ведёт на `/`, `/uz/`, `/en/`; в `<head>` прописаны `hreflang`, в `sitemap.xml` — все три версии.
+
 ## Локальный просмотр
 
 ```bash
-npx serve .            # или: python3 -m http.server 8000
+npx serve .            # или: python3 -m http.server 8000  (пути к ресурсам абсолютные — открывайте через сервер, не как файл)
 ```
 
 Форма заявки работает только на Vercel (или через `vercel dev`), локально покажет сообщение с телефоном.
@@ -45,10 +58,16 @@ npx serve .            # или: python3 -m http.server 8000
 
 ## Фотографии
 
-Сейчас вместо фото стоят тёмные заглушки с подписями `[Фото: …]`.
+Фото в `assets/img/photos/` сгенерированы в ElevenLabs (модель Seedream 5 Lite) и сохранены в WebP в двух размерах — 960 и 1920 px (`srcset`):
 
-- **Hero:** положите фото в `assets/img/hero.jpg` (рекомендуется 2560×1440, ≤ 400 КБ, WebP/JPEG) — сайт подхватит его автоматически.
-- Остальные заглушки — элементы `.card`, `.why__photo`, `.contact__box`: замените градиент `--bg`/`background` на `url(...)`.
+| Файл | Где на сайте |
+|---|---|
+| `hero-*` | первый экран |
+| `road-*`, `border-*`, `warehouse-*`, `customs-*` | карточки услуг |
+| `driver-*` | блок «Уверенность в деталях» |
+| `dock-*` | фон блока заявки |
+
+Чтобы заменить на реальные фото автопарка — сохраните свои файлы с теми же именами (16:9, 960 и 1920 px). Карта офиса пока заглушка: замените `.office__map` на встраиваемую карту Яндекс/Google.
 
 ## Контакты на сайте
 
